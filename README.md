@@ -1,5 +1,5 @@
 # Measure Rest Application
-Measurements from the sensor - rest api application with spring boot, data jpa, possibility of paging display, with sort by fields and sort order. Entity constraint validation and existing in database check - with return errors to client<br/><br/>
+Measurements from the sensor - rest api application with spring boot, spring data jpa, possibility of paging display, with sort by fields and sort order. Entity constraint validation and existing in database check - with return errors to client. Using Spring 5, PostgreSQL 11<br/><br/>
 Get all measurements (list):</br>
 ![get list of measurments](https://github.com/DmitryChelogaev/measureRestApp/assets/91143076/2b02b85a-056d-4323-8dbc-381e755da5aa)
 <br/><br/>
