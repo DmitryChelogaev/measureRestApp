@@ -12,6 +12,7 @@ import ru.chelogaev.dm.measurementrestapp.util.SensorDBValidator;
 
 import static ru.chelogaev.dm.measurementrestapp.exceptions.CheckForCreateException.returnErrorsToClient;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,7 +52,7 @@ public class SensorsController {
     }
 
     @PutMapping("{/id})")
-    public SensorDTO editCensor(@RequestParam int id, @RequestBody @Valid SensorDTO sensorDTO, BindingResult bindingResult) throws EntityValidateException {
+    public SensorDTO editCensor(@RequestParam int id, @RequestBody @Valid SensorDTO sensorDTO, BindingResult bindingResult) throws EntityValidateException, EntityNotFoundException {
         sensorDBValidator.validate(sensorDTO, bindingResult);//Same name verification
         returnErrorsToClient(bindingResult);
         SensorEntity upSens = sensorsService.updateSensor(dtoConverter.convertToEntity(sensorDTO, SensorEntity.class), id);

@@ -42,17 +42,26 @@ public class MeasuresController {
         }
     }
 
-
     @GetMapping("/{id}")
     public MeasureDTO getMeasure(@PathVariable Integer id) throws EntityNotFoundException {
         return dtoConverter.convertToDTO(measuresService.findOne(id), MeasureDTO.class);
     }
 
+    @GetMapping("/rainydayscount")
+    public long getRainyDaysCount() {
+        return measuresService.findAll(null, null).stream().filter(MeasureEntity::isRaining).count();
+    }
 
     @PostMapping
     public MeasureDTO addMeasure(@RequestBody @Valid MeasureDTO measureDTO, BindingResult bindingResult) throws EntityValidateException {
         returnErrorsToClient(bindingResult);
         return dtoConverter.convertToDTO(measuresService.addMeasure(dtoConverter.convertToEntity(measureDTO, MeasureEntity.class)), MeasureDTO.class);
+    }
+
+    @PutMapping("/{id}")
+    public MeasureDTO updateMeasure(@RequestBody @Valid MeasureDTO measureDTO, BindingResult bindingResult, @PathVariable Integer id) throws EntityNotFoundException, EntityValidateException {
+        returnErrorsToClient(bindingResult);
+        return dtoConverter.convertToDTO(measuresService.updateMeasure(dtoConverter.convertToEntity(measureDTO, MeasureEntity.class), id), MeasureDTO.class);
     }
 
     @DeleteMapping("/{id}")
