@@ -49,8 +49,7 @@ public class SensorsService {
 
     public SensorEntity findOne(Integer id) throws EntityNotFoundException{
         Optional<SensorEntity> sensor = sensorsRepository.findById(id);
-        if (sensor.isPresent()) return sensor.get();
-        else throw (new EntityNotFoundException("Sensor with id = " + id + " not found"));
+        return sensor.orElseThrow(()->new EntityNotFoundException("Sensor with id = " + id + " not found"));
     }
 
     @Transactional
@@ -72,8 +71,6 @@ public class SensorsService {
 
     public SensorEntity findByName(String name) throws EntityNotFoundException {
         Optional<SensorEntity> sensorEntityOpt = sensorsRepository.findByName(name);
-        if (sensorEntityOpt.isPresent()) {
-            return sensorEntityOpt.get();
-        } else { throw (new EntityNotFoundException(String.format("Sensor with name ='%s' not found", name)));}
+        return sensorEntityOpt.orElseThrow(()->new EntityNotFoundException(String.format("Sensor with name ='%s' not found", name)));
     }
 }

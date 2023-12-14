@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import ru.chelogaev.dm.measurementrestapp.exceptions.EntityValidateException;
 import ru.chelogaev.dm.measurementrestapp.models.MeasureEntity;
 import ru.chelogaev.dm.measurementrestapp.models.SensorEntity;
 import ru.chelogaev.dm.measurementrestapp.repositories.MeasuresRepository;
@@ -34,8 +35,6 @@ public class MeasuresService {
                 measuresRepository.findAll(Sort.by(sortBy).ascending())) : measuresRepository.findAll();
     }
 
-
-
     @Transactional
     public MeasureEntity addMeasure(MeasureEntity measureEntity) {
         measureEntity.setCreatedAt(LocalDateTime.now());
@@ -46,17 +45,20 @@ public class MeasuresService {
 
     public MeasureEntity findOne(Integer id) throws EntityNotFoundException{
         Optional<MeasureEntity> measure = measuresRepository.findById(id);
-        if (measure.isPresent()) return measure.get(); else throw(new EntityNotFoundException("Measure with id = "+id +" not found"));
+        return measure.orElseThrow(()->new EntityNotFoundException("Measure with id = "+id +" not found"));
     }
 
     @Transactional
-    public MeasureEntity updateMeasure(MeasureEntity updatedMesure, int id) throws EntityNotFoundException{
+    public MeasureEntity updateMeasure(MeasureEntity updatedMesure, int id) throws EntityNotFoundException, EntityValidateException{
         Optional<MeasureEntity> measure = measuresRepository.findById(id);
+        if (updatedMesure.getSensor() == null) {
+            throw new EntityValidateException("Measure not contains sensor");
+        }
         if (measure.isPresent()) {
             MeasureEntity measureEntity = measure.get();
             measureEntity.setValue(updatedMesure.getValue());
             measureEntity.setRaining(updatedMesure.isRaining());
-            measureEntity.setSensor(updatedMesure.getSensor());
+            measureEntity.setSensor(sensorService.findByName(updatedMesure.getSensor().getName()));
             measureEntity.setUpdatedAt(LocalDateTime.now());
             measuresRepository.save(measureEntity);
             return measureEntity;
