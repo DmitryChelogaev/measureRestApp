@@ -19,6 +19,14 @@ Add measure - sensor with given name not exists:
 <br/><br/>
 ![post_measure_error](https://github.com/DmitryChelogaev/measureRestApp/assets/91143076/17b8047e-78dc-48f8-962f-c9ad6da23466)
 <br/><br/>
+Update measure - no errors:
+<br/><br/>
+![update measure right](https://github.com/DmitryChelogaev/measureRestApp/assets/91143076/3206ba4f-0a35-4e2e-bf03-5a96cf4ceefd)
+<br/><br/>
+Update measure - validation error(no sensor):
+<br/><br/>
+![update measure validate error](https://github.com/DmitryChelogaev/measureRestApp/assets/91143076/754b4181-a029-416d-8a4f-70463a03ff57)
+<br/><br/>
 Sensors list:
 <br/><br/>
 ![sensors list](https://github.com/DmitryChelogaev/measureRestApp/assets/91143076/84a38480-1874-4f86-abfc-f1afc4db7d1a)
@@ -30,4 +38,8 @@ Add sensor - field validation:
 Add sensor - a device with given name already exists in the database:
 <br/><br/>
 ![sensor already exists](https://github.com/DmitryChelogaev/measureRestApp/assets/91143076/226cd180-4203-4c14-b6da-2b0acdd3d936)
+<br/><br/>
+Get rainy days count:
+<br/><br/>
+![get rainy days count](https://github.com/DmitryChelogaev/measureRestApp/assets/91143076/67ddb569-e154-470a-baa3-435fcfca8b38)
 
