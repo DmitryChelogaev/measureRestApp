@@ -1,4 +1,4 @@
-package ru.chelogaev.dm.measurementrestapp.exceptions;
+package ru.chelogaev.dm.measurementrestapp.models;
 
 public class ErrorResponseModel {
     private String error;
